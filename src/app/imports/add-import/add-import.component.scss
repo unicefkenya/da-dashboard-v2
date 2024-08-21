@@ -1,0 +1,38 @@
+$primaryblue: #2096f3;
+$primarypink: #ff5a5f;
+$primarygreen: #43a047;
+
+.page-subtitle {
+    font-family: "Prompt-Regular";
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    margin-top: 7%;
+    margin-bottom: 7%;
+    background-color: $primarypink;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.page-subtitle-black {
+    @extend .page-subtitle;
+    color: #000;
+    background-color: transparent;
+}
+
+.title-success {
+    background-color: $primarygreen;
+    color: #fff;
+}
+
+
+:host ::ng-deep .page-form {
+    filter: none !important;
+}
+
+.close-icon {
+    display: flex;
+    justify-content: right;
+    min-width: 100%;
+    cursor: pointer;
+}

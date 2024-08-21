@@ -1,0 +1,32 @@
+<mat-icon class="close-icon" (click)="closeDialog()">icon_close</mat-icon>
+
+<span *ngIf="isCleaning">
+    <h3 class="page-subtitle"><span><b>NOTE! This does not import any
+                learners </b>
+
+        </span>
+    </h3>
+
+    <h3 class="page-subtitle-black">Upload your Excel
+        sheet to
+        start cleaning and verifying the quality of your
+        data.</h3>
+</span>
+
+<span *ngIf="isImport">
+    <h3 class="page-subtitle title-success"><span><b>NOTE! Data uploaded will be
+                imported</b></span>
+    </h3>
+
+    <h3 class="page-subtitle-black">Upload
+        your Excel
+        sheet to
+        start the data importation process.</h3>
+</span>
+
+
+
+<app-myform [extraFields]="extra_fields" [formItems]="formItems" [url]="url" submitButtonText="Search"
+    (onValidatedData)="onValidatedData($event)" componentType="form" formActionName="Upload" submitButtonText=""
+    [formGroupOrder]="formGroupOrder" (onPostedData)="onPostedData($event)">
+</app-myform>

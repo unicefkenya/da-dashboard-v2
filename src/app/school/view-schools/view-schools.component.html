@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="page-title mt-3">View Schools</h1>
+      <app-myform [formItems]="formItems" [url]="url" submitButtonText="Search" isValidationOnly=true
+        (onValidatedData)="onValidatedData($event)" componentType="filter" formActionName="Search" submitButtonText=""
+        [formGroupOrder]="formGroupOrder">
+      </app-myform>
+    </div>
+    <hr />
+  </div>
+
+  <my-app-tables [enableOrderBy]="enableOrderBy"  searchFieldName="name" searchFieldNameMessage="School Name" (exportTriggered)="exportTriggerd($event)"
+    (isLoading)="isLoading($event)" [showNumbering]="false" enableEdit="true" (onLengthLoaded)="onLengthLoaded($event)"
+    [listTypeUrl]="url" [args]='args' [enableExport]="'true'" (actionsEvent)="handleActions($event)" page_size="10"
+    [headers]="headers">
+  </my-app-tables>
+
+</div>

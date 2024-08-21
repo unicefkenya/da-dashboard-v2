@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="page-title mt-3">Deactivations Report</h1>
+      <app-myform [collapseFilters]="collapseFilters" [formItems]="formItems" [url]="url" submitButtonText="Search"
+        isValidationOnly=true (onValidatedData)="onValidatedData($event)" componentType="filter" formActionName="Search"
+        submitButtonText="" [formGroupOrder]="formGroupOrder">
+      </app-myform>
+    </div>
+    <hr />
+    <my-app-tables [enableOrderBy]="enableOrderBy" [headersOrder]="headersOrder" searchFieldName="first_name" searchFieldNameMessage="First Name"
+      (exportTriggered)="exportTriggerd($event)" (isLoading)="isLoading($event)"
+      (onLengthLoaded)="onLengthLoaded($event)" [listTypeUrl]="url" [args]="args" [enableExport]="'true'"
+      (actionsEvent)="handleActions($event)" page_size="10">
+    </my-app-tables>
+  </div>
+</div>

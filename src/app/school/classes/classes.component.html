@@ -1,0 +1,45 @@
+<form [formGroup]="addClassForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-title><b>Add Class</b></mat-card-title>
+        <mat-card-subtitle>{{'All fields marked * are required' | translate }}</mat-card-subtitle>
+        <mat-card-content *ngIf="error">
+            <small class="content mat-text-warn" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                {{ error | titlecase}}
+            </small>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Class (*)" [formControl]="addClassForm.controls['base_class']">
+                            <mat-option *ngFor='let class of baseClasses' [value]="class.name">{{ class.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small
+                        *ngIf="addClassForm.controls['base_class'].hasError('required') && addClassForm.controls['base_class'].touched"
+                        class="mat-text-warn">{{'Select a class please
+                        ' | translate}}</small>
+                </div>
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Stream Name" [formControl]="addClassForm.controls['name']">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-content>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!addClassForm.valid || loader">
+                <span [hidden]="update">{{ loader ? 'Submiting..' : 'Submit' | translate}}</span>
+                <span [hidden]="!update">{{ loader ? 'Updating..' : 'Update' | translate}}</span>
+            </button>
+        </mat-card-content>
+    </mat-card>
+</form>
+<mat-card *ngIf="update">
+    <mat-card-content>
+        <button mat-raised-button color="primary" (click)="addNewclass()"> {{'Add New Class' | translate}}
+        </button>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,142 @@
+$primary: #2096f3;
+$secondary: #7e7e7e;
+$modal-fade-transform: scale(0.8);
+
+@import "~bootstrap/scss/bootstrap";
+@import "scss/material.variables";
+@import "scss/material.themes";
+@import "scss/mixins/bi-app/bi-app-ltr";
+
+// Core Variables and Mixins
+@import "scss/app.variables";
+@import "scss/mixins";
+
+// Core Styles
+@import "scss/core";
+@import "scss/material";
+@import "scss/utilities/utilities";
+
+// todo: move these custom css
+@font-face {
+  font-family: "Prompt-Bold";
+  src: url("../fonts/Prompt/Prompt-Bold.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Prompt-Light";
+  src: url("../fonts/Prompt/Prompt-Light.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Prompt-Medium";
+  src: url("../fonts/Prompt/Prompt-Medium.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Prompt-Regular";
+  src: url("../fonts/Prompt/Prompt-Regular.ttf");
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Prompt-Semibold";
+  src: url("../fonts/Prompt/Prompt-SemiBold.ttf");
+  font-style: normal;
+}
+
+* {
+  font-family: "Prompt-Regular";
+}
+
+.green-snackbar {
+  background-color: #43a047;
+}
+
+.yello-snackbar {
+  background-color: #ffa000;
+}
+
+.red-snackbar {
+  background-color: #d32f2f;
+}
+
+.blue-snackbar {
+  background-color: #2096f3;
+}
+
+.notification-info {
+  padding: 5px;
+  padding-top: 2px;
+}
+
+.message {
+  display: flex;
+  margin-bottom: -5px;
+}
+
+.message mat-icon {
+  opacity: 0.6;
+}
+
+.stats-link {
+  cursor: pointer;
+}
+
+.logo {
+  width: 50%;
+}
+
+.access_account_text {
+  border-bottom: 1px solid black;
+}
+
+.text-color {
+  color: white !important;
+}
+
+.modal-backdrop {
+  z-index: -1 !important;
+}
+
+.modal-backdrop-1 {
+  z-index: -1;
+}
+
+.mat-expansion-indicator {
+  margin-bottom: 4px;
+}
+
+.page-title {
+  font-family: "Prompt-Medium";
+  margin-left: 15px;
+  font-size: 19px;
+}
+
+.page-subtitle {
+  font-family: "Prompt-Regular";
+  margin-left: 15px;
+  font-size: 14px;
+}
+
+input.mat-input-element {
+  margin-bottom: -5px;
+}
+
+input {
+  cursor: pointer;
+}
+
+.page-title {
+  font-family: "Prompt-Medium";
+  margin-left: 15px;
+  font-size: 19px;
+}
+
+.page-subtitle {
+  font-family: "Prompt-Regular";
+  margin-left: 20px;
+  font-size: 14px;
+}

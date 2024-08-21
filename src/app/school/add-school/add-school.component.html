@@ -1,0 +1,283 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-title><b>Section A: School Profile</b></mat-card-title>
+        <mat-card-subtitle>School profile (*) - required fields </mat-card-subtitle>
+
+        <mat-card-content *ngIf="error">
+            <div class="content mat-text-warn" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <small fxFlex="48" class="sec1" fxFlex.xs="55">
+                    {{ error }}
+                </small>
+            </div>
+        </mat-card-content>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="School EMIS number (*)" [formControl]="form.controls['emis_code']">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['emis_code'].hasError('required') && form.controls['emis_code'].touched"
+                        class="mat-text-warn">EMIS number is required</small>
+
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="School name (*)" [formControl]="form.controls['name']">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" class="mat-text-warn">School
+                        name is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between" *ngIf="!hideRegion">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Select Region (*)" [formControl]="form.controls['region']">
+                            <mat-option *ngFor="let region of this.regions" [value]="region.id">{{ region.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['region'].hasError('required') && form.controls['region'].touched"
+                        class="mat-text-warn">Region is required</small>
+
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Select District (*)" [formControl]="form.controls['district']">
+                            <mat-option *ngFor="let district of this.districts" [value]="district.id">{{ district.name
+                                }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['district'].hasError('required') && form.controls['district'].touched"
+                        class="mat-text-warn">District is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Select Village (*)" [formControl]="form.controls['village']" (click)="villagedClicked()">
+                            <mat-option *ngFor="let village of this.villages" [value]="village.id">{{ village.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['village'].hasError('required') && form.controls['village'].touched"
+                        class="mat-text-warn">Village is required</small>
+
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Telephone number" [formControl]="form.controls['phone']">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Email Address" [formControl]="form.controls['email']">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Registration Number / Region Ministry of Education (if any)"
+                            [formControl]="form.controls['school_ministry']">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <!-- end of section A -->
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title><b>Section B: School History</b></mat-card-title>
+        <mat-card-subtitle>Tell us about school history</mat-card-subtitle>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Name of the founder, if any" [formControl]="form.controls['founder_name']">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Year of foundation (*)" [formControl]="form.controls['year_of_foundation']">
+                            <mat-option *ngFor='let year of years' [value]="year.value">{{ year.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['year_of_foundation'].hasError('required') && form.controls['year_of_foundation'].touched"
+                        class="mat-text-warn">Year of Foundation is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Former name of school (if any)" [formControl]="form.controls['former_school_name']">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title><b>Section C: School Particulars</b></mat-card-title>
+        <mat-card-subtitle>B1. Tell us what organization or entity owns the school building and provides your school
+            with financial assistance.</mat-card-subtitle>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="100" class="sec1" fxFlex.xs="55">
+                    <div class="inline-label">Ownership</div>
+                    <mat-radio-group aria-label="Select an option" [formControl]="form.controls['ownership']">
+                        <mat-radio-button *ngFor="let owner of ownership; let i = index" [value]="owner">{{ i+1+'. '
+                            }}{{ owner }}</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field style="width: 30%" *ngIf="ownership_status">
+                        <input matInput placeholder="" value="" [formControl]="form.controls['other_owner']">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="100" class="sec1" fxFlex.xs="55">
+                    <div class="inline-label">Location (*)</div>
+                    <mat-radio-group aria-label="Select an option" [formControl]="form.controls['location']">
+                        <mat-radio-button *ngFor="let loc of location; let i = index" [value]="loc.value">{{i+1+'.
+                            '}}{{ loc.name }}</mat-radio-button>
+                    </mat-radio-group>
+                    <small *ngIf="form.controls['location'].hasError('required') && form.controls['location'].touched"
+                        class="mat-text-warn">Location is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="24" class="sec1" fxFlex.xs="55">
+                    <div class="">Enter school coordinates</div>
+                    <mat-form-field style="width: 50%">
+                        <small class="inline-label">Latitude</small>
+                        <input matInput placeholder="" [formControl]="form.controls['lat']">
+                    </mat-form-field>
+                    <mat-form-field style="width: 50%">
+                        <small class="inline-label">Longitude</small>
+                        <input matInput placeholder="" [formControl]="form.controls['lng']">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title><b>Section D: School Calendar</b></mat-card-title>
+        <mat-card-subtitle>Tell us about school calendar</mat-card-subtitle>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <div class="inline-label"> In which month do you start the school year? (*)</div>
+                    <mat-form-field style="width: 100%">
+                        <mat-select aria-label="Select an option" [formControl]="form.controls['start_of_calendar']">
+                            <mat-option *ngFor='let month of months' [value]="month.value">{{ month.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['start_of_calendar'].hasError('required') && form.controls['start_of_calendar'].touched"
+                        class="mat-text-warn">Start of School Calendar is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <div class="inline-label"> In which month do you end the school year? (*)</div>
+                    <mat-form-field style="width: 100%">
+                        <mat-select aria-label="Select an option" [formControl]="form.controls['end_of_calendar']">
+                            <mat-option *ngFor='let month of months' [value]="month.value">{{ month.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['end_of_calendar'].hasError('required') && form.controls['end_of_calendar'].touched"
+                        class="mat-text-warn">End of School Calendar is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title><b>Section E: Grade levels</b></mat-card-title>
+        <mat-card-subtitle>Tell us about school grade levels</mat-card-subtitle>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <div class="inline-label"> The lowest primary grade/class taught (*)</div>
+                    <mat-form-field style="width: 100%">
+                        <mat-select aria-label="Select an option" [formControl]="form.controls['lowest_grade']">
+                            <mat-option *ngFor='let class of classes' [value]="class">{{ class }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['lowest_grade'].hasError('required') && form.controls['lowest_grade'].touched"
+                        class="mat-text-warn">Lowest Grade is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <div class="inline-label"> The highest primary grade/class taught (*)</div>
+                    <mat-form-field style="width: 100%">
+                        <mat-select aria-label="Select an option" [formControl]="form.controls['highest_grade']">
+                            <mat-option *ngFor='let class of classes' [value]="class">{{ class }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="form.controls['highest_grade'].hasError('required') && form.controls['highest_grade'].touched"
+                        class="mat-text-warn">Highest Grade is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-title><b>Section F: School timing</b></mat-card-title>
+        <mat-card-subtitle>Tell us type of schooling provided in your school</mat-card-subtitle>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="100" class="sec1" fxFlex.xs="55">
+                    <div class="inline-label">What type of schooling does your school provide? (*)</div>
+                    <mat-radio-group aria-label="Select an option" [formControl]="form.controls['schooling']">
+                        <mat-radio-button *ngFor="let time of timings; let i = index" [value]="time.value">{{i+1+'.
+                            '}}{{ time.name }}</mat-radio-button>
+                    </mat-radio-group>
+                    <small *ngIf="form.controls['schooling'].hasError('required') && form.controls['schooling'].touched"
+                        class="mat-text-warn">Type of School is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card>
+        <mat-card-content>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid || loading">
+                {{ update ? 'Update': 'Register'}} School
+            </button>
+        </mat-card-content>
+    </mat-card>
+</form>

@@ -1,0 +1,92 @@
+<mat-card>
+    <mat-form-field style="width: 100%" class="mb-1">
+        <input matInput placeholder="Enter school name" required [(ngModel)]="search_name">
+        <!-- (input)="onSearchChange($event.target.value) [disabled]="!form.valid"-->
+    </mat-form-field>
+    <button *ngIf="search_name.length > 1" mat-raised-button color="primary" (click)="search(search_name)">{{ searching_school ?
+    'Searching...' :
+    'Search'}}
+  </button>
+
+    <mat-card-content *ngIf="schools">
+        <br>
+        <!-- fixme: change the table design to ngx-tables -->
+        <table class="table">
+            <tr>
+                <th>No.</th>
+                <th>School name</th>
+                <th>Emis Code</th>
+            </tr>
+
+            <tr *ngFor="let school of schools; let i = index">
+                <td>{{ i+1 }}.</td>
+                <td>
+                    <a [routerLink]="['/schools/schools-attendance']" [queryParams]="{ school_name: school.name, school: school.id }">{{school.name}}</a>
+                </td>
+                <td>{{ school.emis_code }}</td>
+            </tr>
+        </table>
+    </mat-card-content>
+</mat-card>
+<mat-card *ngIf="school_name">
+    <div fxFlex.gt-sm="33.33% " fxFlex="100 " fxLayout="column ">
+        <p>School Name : <b>{{ school_name }}</b></p>
+    </div>
+</mat-card>
+<div fxLayout="row " fxLayoutWrap="wrap ">
+    <div fxFlex.gt-sm="33.33% " fxFlex="100 " fxLayout="column ">
+        <!-- daily attendance -->
+        <mat-card *ngIf="att_d_resolver">
+            <mat-card-title>{{ 'DAILY_ATTENDANCE' | translate }}
+                <!-- todo: change design and add date filters  -->
+                <!-- <input matInput [matDatepicker]="picker" [(ngModel)]="dailyEndDate" (ngModelChange)="selectedDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker> -->
+            </mat-card-title>
+            <mat-card-subtitle>{{ 'ATTENDANCE_DESC' | translate }}</mat-card-subtitle>
+            <mat-card-content *ngIf="!no_d_attendance">
+                <app-graphs [chart_type]='
+            bar' [configs]='barConfig' [data]='att_d_distribution'></app-graphs>
+            </mat-card-content>
+            <mat-card-content *ngIf="no_d_attendance">
+                <p>{{'No daily attendance found for last 7 days' | translate}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="33.33% " fxFlex="100 " fxLayout="column ">
+        <!-- monthly attendance -->
+        <mat-card *ngIf="att_m_resolver">
+            <mat-card-title>{{ 'MONTHLY_ATTENDANCE' | translate }}
+                <!-- todo: change design and add date filters  -->
+                <!-- <input matInput [matDatepicker]="picker" [(ngModel)]="selectedMonth" (ngModelChange)="selectedmonthChange($event)"> -->
+                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                <!-- <mat-datepicker #picker></mat-datepicker> -->
+            </mat-card-title>
+            <mat-card-subtitle>{{ 'ATTENDANCE_DESC' | translate }}</mat-card-subtitle>
+            <mat-card-content *ngIf="!no_m_attendance">
+                <app-graphs [chart_type]='bar' [configs]='barConfig' [data]='att_m_distribution'></app-graphs>
+            </mat-card-content>
+            <mat-card-content *ngIf="no_m_attendance">
+                <p>{{'No monthly attendance found for last 4 months' | translate}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div fxFlex.gt-sm="33.33% " fxFlex="100 " fxLayout="column ">
+        <!-- annual attendance -->
+        <mat-card *ngIf="att_resolver">
+            <mat-card-title>{{ 'ANNUAL_ATTENDANCE' | translate }}
+                <!-- todo: change design and add date filters  -->
+                <!-- <mat-select [(ngModel)]="selectedYear" (ngModelChange)="selectedYearChange($event)">
+                    <mat-option *ngFor="let year of pastYears" [value]="year">{{ year }}</mat-option>
+                </mat-select> -->
+            </mat-card-title>
+            <mat-card-subtitle>{{ 'ATTENDANCE_DESC' | translate }}</mat-card-subtitle>
+            <mat-card-content *ngIf="!no_y_attendance">
+                <app-graphs [chart_type]='doughnut' [configs]='doughnutConfig' [data]='att_distribution'></app-graphs>
+            </mat-card-content>
+            <mat-card-content *ngIf="no_y_attendance">
+                <p>{{'No yearly attendance found for this year' | translate}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

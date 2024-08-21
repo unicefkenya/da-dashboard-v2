@@ -1,0 +1,10 @@
+<div class="container">
+
+  <h1 class="page-title mt-3">Add Class</h1>
+
+  <app-myform [extraFields]="extra_fields" [formItems]="formItems" [url]="url"
+    (onValidatedData)="onValidatedData($event)" [submitButtonText]="'Class'" [formGroupOrder]="formGroupOrder"
+    [hideButtons]=false (onPostedData)="onPostedData($event)" [instance]="instance">
+  </app-myform>
+
+</div>

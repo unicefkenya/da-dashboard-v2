@@ -1,0 +1,93 @@
+<p mat-dialog-title style="text-align:center; border-bottom: 1px solid gray;">
+    Edit Profile
+</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+    <div mat-dialog-content style="border-bottom: 1px solid gray;">
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="First name *" [formControl]="form.controls['first_name']">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['first_name'].hasError('required') && form.controls['first_name'].touched" class="mat-text-warn">First name is required</small>
+                </div>
+            </div>
+            <!-- <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Middle name" [formControl]="form.controls['middle_name']">
+                    </mat-form-field>
+                </div>
+            </div> -->
+            <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Last name *" [formControl]="form.controls['last_name']">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['last_name'].hasError('required') && form.controls['last_name'].touched" class="mat-text-warn">Last name is required</small>
+                </div>
+            </div>
+            <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Email *" [formControl]="form.controls['email']">
+                    </mat-form-field>
+                    <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="mat-text-warn">Email is required</small>
+                </div>
+            </div>
+            <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Phone number" [formControl]="form.controls['phone']">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <mat-form-field style="width: 100%">
+                        <!-- <input matInput placeholder="Gender" [formControl]="form.controls['gender']"> -->
+                        <mat-select [(value)]="selected" placeholder="Gender" formControlName="gender">
+                            <!-- <mat-option [selected]="{{profile.gender}}"></mat-option> -->
+                            <mat-option *ngFor='let g of sex' [value]="g.value">{{ g.gender | translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <!-- <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Date of birth" [formControl]="form.controls['dob']">
+                    </mat-form-field> -->
+                    <mat-form-field style="width: 100%">
+                        <input matInput [matDatepicker]="picker" placeholder="Date of birth" [formControl]="form.controls['dob']">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Country" [formControl]="form.controls['country']">
+                    </mat-form-field>
+                </div>
+            </div> -->
+            <!-- <div class="content" fxLayout="row" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.xs="100">
+                     <mat-form-field style="width: 100%">
+                        <input placeholder="Profile Image" type="file" #profile_image name="profile_image" accept="image/*" [formControl]="form.controls['profile_image']">
+                    </mat-form-field>
+                </div>
+            </div> -->
+        </mat-card-content>
+    </div>
+    <div mat-dialog-actions>
+        <button style="margin-left: 120px" mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+                {{ edit ? 'Updating': 'Edit'}}
+        </button>
+        <!-- <button mat-button [mat-dialog-close]="selectedId" cdkFocusInitial>Edit</button> -->
+    </div>
+</form>
+<div style="margin-top: -60px" mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+</div>

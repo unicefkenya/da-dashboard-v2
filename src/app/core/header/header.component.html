@@ -1,0 +1,47 @@
+<mat-toolbar class="main-header" color="primary">
+  <button (click)="toggleSidenav.emit()" mat-icon-button>
+    <mat-icon>menu</mat-icon>
+  </button>
+
+
+  <div class="nav-bar">
+    <img src="../../../assets/images/kenya_logo.png" (click)="gotoHome()" alt="" class="logo">
+    <div class="ministry-text"> | &nbsp; Ministry of Education</div>
+    <div class="onekana-text">Onekana Digital Attendance</div>
+  </div>
+
+
+  <div class="search-bar" fxFlex></div>
+  <!-- TODO: remove search-bar -->
+  <button (click)="fullScreenToggle()" mat-icon-button>
+    <mat-icon>fullscreen</mat-icon>
+  </button>
+  <!-- 
+      TODO: activate if notifications
+      
+      <button (click)="toggleNotificationSidenav.emit()" mat-icon-button class="ml-xs overflow-visible">
+    <mat-icon>notifications</mat-icon>
+    <span class="notification-label">5</span>
+  </button> -->
+  <button [matMenuTriggerFor]="user" mat-icon-button class="ml-xs">
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #user="matMenu" x-position="before">
+    <!-- <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      Settings
+    </button> -->
+    <a [routerLink]="['/settings/profile']"><button mat-menu-item>
+        <mat-icon>account_box</mat-icon>
+        Profile
+      </button></a>
+    <!-- <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon>
+      Disable notifications
+    </button> -->
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      Sign Out
+    </button>
+  </mat-menu>
+</mat-toolbar>

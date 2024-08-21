@@ -1,0 +1,23 @@
+<p style="border-bottom: 1px solid gray; font-size: 16px; padding-bottom: 8px;">
+    {{ data.page == 'student' ? ' Provide a reason for deleting - ' : 'Confirm to delete' }} <br>
+    <span style="font-weight: 600;" *ngIf="data.page == 'school' || data.page == 'Teacher'">{{ data.row.name }}</span>
+    <span style="font-weight: 600;" *ngIf="data.page == 'class'"> class {{ data.row.base_class }}{{ data.row.name }} </span>
+    <span style="font-weight: 600;" *ngIf="data.page == 'student'">{{ data.row.full_names }} </span>
+</p>
+<div *ngIf="data.page == 'student'" mat-dialog-content style="border-bottom: 1px solid gray; padding-bottom: 10px;">
+    <mat-radio-group [(ngModel)]="data.row.selectedId" class="radio-group">
+        <mat-radio-button class="radio-button" *ngFor="let reason of data.row.deleteReasons" [value]="reason.id">
+            {{reason.description}}
+        </mat-radio-button>
+    </mat-radio-group>
+    <div *ngIf="data.row.otherId == data.row.selectedId">
+        <mat-form-field style=" width: 100%;">
+            <textarea matInput placeholder="provide reason" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="10" [(ngModel)]="data.row.otherReason">
+            </textarea>
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-raised-button color="primary" mat-button [mat-dialog-close]="data.row" cdkFocusInitial>Confirm</button>
+</div>

@@ -1,0 +1,7 @@
+<app-tables *ngIf="!loader" (setPage)='pageNumberClicked($event)' (searchPage)='searchStudent($event)' (defaultValues)='defaultValues($event)' [columns]="columns" [rows]="rows" [data]="rows" [total]="total" [pageNumber]="pageNumber" [page]="currentPage"
+    [searching]="searching" [loaderStatus]="loader">
+    {{ searching ? 'Searching...' : 'Search' }}
+</app-tables>
+<div *ngIf="loader" style="padding-top: 30%;">
+    <app-loader></app-loader>
+</div>

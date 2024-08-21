@@ -1,0 +1,16 @@
+<div fxLayout="row wrap">
+    <div fxFlex.gt-sm="100" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-card class="welcome-banner">
+            <div fxFlex.gt-sm="75" fxFlex.gt-xs="50" fxFlex="100">
+                <div class="welcome">{{ 'WELCOME' | translate }} <span class="banner">
+                        <span>{{ loggedInUser }} ({{ loggedInRoleName }}).</span>
+                    </span>
+                </div>
+            </div>
+            <div fxFlex.gt-sm="25" fxFlex.gt-xs="50" fxFlex="100">
+                <div class="loggedin">{{ 'LOGGED_IN' | translate }} <span id="timer" class="banner">{{ timer }}</span>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>

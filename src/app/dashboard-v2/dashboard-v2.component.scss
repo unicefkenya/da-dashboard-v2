@@ -1,0 +1,155 @@
+:host ::ng-deep .card-title {
+    font-family: "Prompt-Regular" !important;
+}
+
+:host ::ng-deep .card-text {
+    font-size: 13px !important;
+}
+
+:host ::ng-deep .school-class {
+    background-color: #929292 !important;
+    color: #ffffff !important;
+}
+
+:host ::ng-deep .student-class {
+    background-color: #009688 !important;
+    color: #fff !important;
+}
+
+:host ::ng-deep .male-class {
+    background-color: #2196f3 !important;
+    color: #fff !important;
+}
+
+:host ::ng-deep .female-class {
+    // #FFD28F
+    background-color: #ff10f0 !important;
+    color: #fff !important;
+}
+
+:host ::ng-deep .dropout-male-class {
+    background-color: #e91e1e !important;
+    color: #fff !important;
+}
+
+:host ::ng-deep .dropout-female-class {
+
+    // background-color: #e91e63 !important;
+    background-color: #a52b70 !important;
+    color: #fff !important;
+}
+
+
+:host ::ng-deep .my-chart-wrapper {
+    padding: 0px !important;
+}
+
+.mat-card {
+    padding: 10px;
+}
+
+.row-no-pad {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.data-list-class {
+    width: 99%;
+}
+
+:host ::ng-deep .absencereason {
+    min-height: 500px !important;
+}
+
+:host ::ng-deep .att_lwd_grade {
+    min-height: 400px !important;
+}
+
+
+:host ::ng-deep .att_grade {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .att_county {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .att_month {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .att_lwd {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .enr_grade {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .enr_county {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .enr_month {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .enr_lwd {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .enr_lwd_grade {
+    min-height: 400px !important;
+}
+
+:host ::ng-deep .enr_lwd_county {
+    min-height: 400px !important;
+}
+
+.stats-wrapper {
+    max-width: fit-content !important;
+    margin-left: 0 !important;
+    overflow-x: hidden !important;
+}
+
+.chart-titles {
+    font-family: "Prompt-Medium" !important;
+    padding-top: 5px;
+}
+
+.chart-title-2 {
+    font-family: "Prompt-Medium" !important;
+    padding-top: 15px;
+}
+
+.title-date-wrapper {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+#exampleSelect {
+    font-size: 14px;
+}
+
+.divider-top {
+    margin-top: 20px;
+}
+
+:host ::ng-deep .no-data-title {
+    font-family: "Prompt-Medium" !important;
+    font-size: 16px !important;
+}
+
+:host ::ng-deep .no-data-subtitle {
+    font-family: "Prompt-Regular" !important;
+    font-size: 15px !important;
+}
+
+:host ::ng-deep .no-data-text {
+    font-family: "Prompt-Regular" !important;
+    font-size: 14px !important;
+    margin-top: 10px !important;
+}

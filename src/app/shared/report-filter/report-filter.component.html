@@ -1,0 +1,64 @@
+<div class="filter-bar">
+  <div class="d-flex">
+
+    <div class="d-flex filter-bar-item">
+      <mat-icon class="mt-1" svgIcon="book"></mat-icon>
+    </div>
+
+
+    <div class="d-flex filter-bar-item">
+      <mat-icon class="mt-1" svgIcon="report"></mat-icon>
+      <select class="form-control form-control-sm form-select" aria-label="Default select example">
+        <option selected>Report Type</option>
+        <option value="learners">Learners Report</option>
+        <option value="attendance">Attendance Report</option>
+      </select>
+    </div>
+    <div class="d-flex filter-bar-item">
+      <mat-icon class="mt-1" svgIcon="filter"></mat-icon>
+      <select class="form-control form-control-sm form-select" aria-label="Default select example">
+        <option selected>Filter by</option>
+        <option value="learners">Class</option>
+        <option value="attendance">School</option>
+        <option value="attendance">County</option>
+        <option value="attendance">Sub County</option>
+        <option value="attendance">Special Needs</option>
+        <option value="attendance">Gender</option>
+      </select>
+    </div>
+    <div class="d-flex filter-bar-item">
+      <mat-icon class="mt-1" svgIcon="group"></mat-icon>
+      <select class="form-control form-control-sm form-select" aria-label="Default select example">
+        <option selected>Group by</option>
+        <option value="learners">Class</option>
+        <option value="attendance">School</option>
+        <option value="attendance">County</option>
+        <option value="attendance">Sub County</option>
+        <option value="attendance">Special Needs</option>
+        <option value="attendance">Gender</option>
+      </select>
+    </div>
+    <div class="d-flex filter-bar-item">
+      <mat-icon class="mt-1" svgIcon="calendar"></mat-icon>
+      <select class="form-control form-control-sm form-select" aria-label="Default select example">
+        <option selected>Reporting Period</option>
+        <option value="learners">Today</option>
+        <option value="attendance">Yesterday</option>
+        <option value="attendance">Last 7 Days</option>
+        <option value="attendance">Last 14 Days</option>
+        <option value="attendance">Last 30 Days</option>
+        <option value="attendance">Last 90 Days</option>
+      </select>
+    </div>
+    <div class="ml-4"></div>
+    <div class="mx-3 d-flex">
+      <button class="filter-btn apply" (click)="applyFilters()">Apply All</button>
+    </div>
+    <div class="d-flex justify-content-end">
+      <button class="filter-btn" (click)="clearFilters()">Reset All<mat-icon class="drop" svgIcon="reset"></mat-icon>
+      </button>
+    </div>
+
+
+  </div>
+</div>

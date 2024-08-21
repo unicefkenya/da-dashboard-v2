@@ -1,0 +1,61 @@
+$primaryblue: #2096f3;
+$primarypink: #ff5a5f;
+$primarygreen: #43a047;
+
+.filter-bar {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 6px;
+    filter: drop-shadow(0px 3px 6px #00000029);
+}
+
+.filter-bar-item {
+    width: fit-content !important;
+    font-family: 13px;
+    font-family: "Prompt-Medium";
+    border-right: 1px solid $primaryblue;
+    padding: 5px;
+}
+
+.filter-bar-item span {
+    margin: 0px 10px;
+}
+
+.filter-bar-item mat-icon {
+    width: 18px;
+    height: 18px;
+    color: #000;
+}
+
+mat-icon {
+    width: 12px;
+    margin-left: 10px;
+}
+
+.filter-type {
+    font-size: 14px;
+}
+
+.filter-type-desc {
+    font-size: 13px;
+}
+
+.page-title {
+    font-family: "Prompt-Medium";
+    margin-left: 15px;
+    font-size: 19px;
+}
+
+.page-subtitle {
+    font-family: "Prompt-Regular";
+    margin-left: 20px;
+    font-size: 14px;
+}
+
+:host ::ng-deep {
+    .form-control {
+      font-size: 14px !important;
+    }
+  }

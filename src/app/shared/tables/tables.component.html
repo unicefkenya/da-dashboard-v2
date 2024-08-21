@@ -1,0 +1,11 @@
+<mat-card>
+    <mat-form-field style="width: 100%" class="mb-1">
+        <input matInput (ngModelChange)="onKeyDown()" placeholder="{{ 'SEARCH_BUTTON.TABLE_PLACEHOLDER' | translate }}"
+            [(ngModel)]="search_name">
+    </mat-form-field>
+    <button [disabled]="!search_name" *ngIf="search_name.length > 1" mat-raised-button color="primary"
+        (click)="search(search_name)">
+        {{searching?'Searching...' : 'Search'}}
+    </button>
+</mat-card>
+<app-loader *ngIf="loaderStatus"></app-loader>

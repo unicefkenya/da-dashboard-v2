@@ -1,0 +1,305 @@
+<div class="container stats-wrapper">
+    <app-welcome-banner></app-welcome-banner>
+    <sistch-data-list style="overflow-y: hidden;" [dataMap]="dataMap">
+        <div class="row">
+            <sistch-data-card [preChartDataFunctions]="[preChartDataCard]" [cardsDetails]="cardDetails" dataKey="stats">
+            </sistch-data-card>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="title-date-wrapper">
+            <h2 class="chart-titles">Attendance Charts - {{getSelectedDispaly()}}</h2>
+            <div class="row">
+                <select [(ngModel)]="statsDuration" (ngModelChange)="routeToNewPage()" class="form-select"
+                    id="exampleSelect">
+
+                    <option *ngFor="let item of durationsMap" value={{item.value}}>{{item.display_name}}</option>
+                    <!-- <option value=14>2 Weeks Ago</option>
+                    <option value=30>1 Month Ago</option>
+                    <option value=90>3 Month Ago</option>
+                    <option value=180>6 Month Ago</option>
+                    <option value=365>1 Year Ago</option> -->
+                </select>
+
+             <ng-content select="[nav-item]"></ng-content>
+        
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <sistch-data-card [preChartDataFunctions]="[attCardsPreChartData]" [cardsDetails]="cardDetailsAtt"
+                dataKey="all">
+            </sistch-data-card>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="att_grade"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,attendanceCombinedPreChartData,attendancePercentageCombinedPreChartData,gradeNameAppendPreChartData]"
+                        dataKey="att_grade" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="Grade / Class" yAxisLabel="Attendance Percentage %" titleText="Attendance By Grade"
+                        xAxisField="class_name" [xAxisExtraOptions]="xAxisExtraOptions"
+                        [xScaleExtraOptions]="xScaleAxisExtraOptions" [yAxisExtraOptions]="xAxisExtraOptions"
+                        [yScaleExtraOptions]="xScaleAxisExtraOptions" [titleExtraOptions]="titleExtraOptions"
+                        [subTtitleExtraOptions]="subtitleExtraOptions" [legendExtraOptions]="legendExtraOptions"
+                        [yAxisFields]="attendanceGradeBarGraph" [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="att_county"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,attendanceCombinedPreChartData,attendancePercentageCombinedPreChartData,streamNameAppendPreChartData]"
+                        dataKey="att_county" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="{{getDynamicRoleType()}}" yAxisLabel="Attendance Percentage %"
+                        titleText="Attendance By{{getDynamicRoleType()}}" [titleExtraOptions]="titleExtraOptions"
+                        [subTtitleExtraOptions]="subtitleExtraOptions" [legendExtraOptions]="legendExtraOptions"
+                        xAxisField="{{getXDisplayFieldName()}}" [yAxisFields]="attendanceCountyBarGraph"
+                        [xAxisExtraOptions]="xAxisExtraOptions" [xScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [yAxisExtraOptions]="xAxisExtraOptions" [yScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="att_month"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,monthNamePreChartData,attendanceCombinedPreChartData,attendancePercentageCombinedPreChartData]"
+                        dataKey="att_month" [responsive]="true" graphType="bar" subTitleText="" xAxisLabel="Month"
+                        yAxisLabel="Attendance Percentage %" titleText="Attendance By Month"
+                        [titleExtraOptions]="titleExtraOptions" [subTtitleExtraOptions]="subtitleExtraOptions"
+                        [legendExtraOptions]="legendExtraOptions" xAxisField="month"
+                        [yAxisFields]="attendanceMonthBarGraph" [xAxisExtraOptions]="xAxisExtraOptions"
+                        [xScaleExtraOptions]="xScaleAxisExtraOptions" [yAxisExtraOptions]="xAxisExtraOptions"
+                        [yScaleExtraOptions]="xScaleAxisExtraOptions" [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="att_lwd"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,attendanceCombinedPreChartData,attendancePercentageCombinedPreChartData]"
+                        dataKey="att_lwd" [responsive]="true" graphType="bar" subTitleText="" xAxisLabel="Special Need"
+                        yAxisLabel="Attendance Percentage %" titleText="Attendance By Special Need"
+                        [titleExtraOptions]="titleExtraOptions" [subTtitleExtraOptions]="subtitleExtraOptions"
+                        xAxisField="special_need_name" [yAxisFields]="attendanceDefaultBarGraph"
+                        [legendExtraOptions]="legendExtraOptions" [xAxisExtraOptions]="xAxisExtraOptions"
+                        [xScaleExtraOptions]="xScaleAxisExtraOptions" [yAxisExtraOptions]="xAxisExtraOptions"
+                        [yScaleExtraOptions]="xScaleAxisExtraOptions" [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="att_lwd_grade"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,gradeNameAppendPreChartData,attendanceCombinedPreChartData,attendancePercentageCombinedPreChartData]"
+                        dataKey="att_lwd_grade" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="Grade / Class" yAxisLabel="Attendance Percentage %"
+                        titleText="Special Need Learners' Attendance By Class" xAxisField="class_name"
+                        [titleExtraOptions]="titleExtraOptions" [subTtitleExtraOptions]="subtitleExtraOptions"
+                        [legendExtraOptions]="legendExtraOptions" [yAxisFields]="attendanceDefaultBarGraph"
+                        [xAxisExtraOptions]="xAxisExtraOptions" [xScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [yAxisExtraOptions]="xAxisExtraOptions" [yScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="att_lwd_grade"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,attendanceCombinedPreChartData,streamNameAppendPreChartData,attendancePercentageCombinedPreChartData]"
+                        dataKey="att_lwd_county" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="{{getDynamicRoleType()}}" yAxisLabel="Attendance Percentage %"
+                        titleText="Special Need Learners' Attendance By{{getDynamicRoleType()}}"
+                        xAxisField="{{getXDisplayFieldName()}}" [titleExtraOptions]="titleExtraOptions"
+                        [subTtitleExtraOptions]="subtitleExtraOptions" [legendExtraOptions]="legendExtraOptions"
+                        [yAxisFields]="attendanceDefaultBarGraph" [xAxisExtraOptions]="xAxisExtraOptions"
+                        [xScaleExtraOptions]="xScaleAxisExtraOptions" [yAxisExtraOptions]="xAxisExtraOptions"
+                        [yScaleExtraOptions]="xScaleAxisExtraOptions" [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+        </div>
+
+        <mat-divider class="divider-top"></mat-divider>
+        <h2 class="chart-title-2">Enrolment Charts - {{getSelectedDispaly()}}</h2>
+        <div class="row">
+            <sistch-data-card [preChartDataFunctions]="[enrollCardsPreChartData]" [cardsDetails]="cardDetailsEnrl"
+                dataKey="all">
+            </sistch-data-card>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="enr_grade"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,gradeNameAppendPreChartData]"
+                        dataKey="enr_grade" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="Grade / Class" yAxisLabel="Number of Learners" titleText="Enrolment By Grade"
+                        xAxisField="class_name" [yAxisFields]="defaultEnrolmentGraphOptions"
+                        [titleExtraOptions]="titleExtraOptions" [subTtitleExtraOptions]="subtitleExtraOptions"
+                        [legendExtraOptions]="legendExtraOptions" [xAxisExtraOptions]="xAxisExtraOptions"
+                        [xScaleExtraOptions]="xScaleAxisExtraOptions" [yAxisExtraOptions]="xAxisExtraOptions"
+                        [yScaleExtraOptions]="xScaleAxisExtraOptions" [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="enr_county"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,streamNameAppendPreChartData]"
+                        dataKey="enr_county" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="{{getDynamicRoleType()}}" yAxisLabel="Number of Learners"
+                        titleText="Enrolment By{{getDynamicRoleType()}}" xAxisField="{{getXDisplayFieldName()}}"
+                        [yAxisFields]="defaultEnrolmentGraphOptions" [titleExtraOptions]="titleExtraOptions"
+                        [subTtitleExtraOptions]="subtitleExtraOptions" [legendExtraOptions]="legendExtraOptions"
+                        [xAxisExtraOptions]="xAxisExtraOptions" [xScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [yAxisExtraOptions]="xAxisExtraOptions" [yScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="enr_month"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,monthNamePreChartData]"
+                        dataKey="enr_month" [responsive]="true" graphType="bar" subTitleText="" xAxisLabel="Month"
+                        yAxisLabel="Number of Learners" titleText="Enrolment By Month" xAxisField="month"
+                        [yAxisFields]="defaultEnrolmentGraphOptions" [titleExtraOptions]="titleExtraOptions"
+                        [subTtitleExtraOptions]="subtitleExtraOptions" [legendExtraOptions]="legendExtraOptions"
+                        [xAxisExtraOptions]="xAxisExtraOptions" [xScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [yAxisExtraOptions]="xAxisExtraOptions" [yScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="enr_lwd" [preChartDataFunctions]="[removeNullValuePreChartData]"
+                        dataKey="enr_lwd" [responsive]="true" graphType="bar" subTitleText="" xAxisLabel="Special Need"
+                        yAxisLabel="Number of Learners" titleText="Enrolment By Special Need"
+                        xAxisField="special_need_name" [yAxisFields]="defaultEnrolmentGraphOptions"
+                        [titleExtraOptions]="titleExtraOptions" [subTtitleExtraOptions]="subtitleExtraOptions"
+                        [legendExtraOptions]="legendExtraOptions" [xAxisExtraOptions]="xAxisExtraOptions"
+                        [xScaleExtraOptions]="xScaleAxisExtraOptions" [yAxisExtraOptions]="xAxisExtraOptions"
+                        [yScaleExtraOptions]="xScaleAxisExtraOptions" [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="enr_lwd_grade"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,gradeNameAppendPreChartData]"
+                        dataKey="enr_lwd_grade" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="Grade / Class" yAxisLabel="Number of Learners"
+                        titleText="Enrolment By Grade for Learners with Special Needs" xAxisField="class_name"
+                        [yAxisFields]="defaultEnrolmentGraphOptions" [titleExtraOptions]="titleExtraOptions"
+                        [subTtitleExtraOptions]="subtitleExtraOptions" [legendExtraOptions]="legendExtraOptions"
+                        [xAxisExtraOptions]="xAxisExtraOptions" [xScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [yAxisExtraOptions]="xAxisExtraOptions" [yScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+            <div class="col-xs-12 col-md-6" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="enr_lwd_county"
+                        [preChartDataFunctions]="[removeNullValuePreChartData,streamNameAppendPreChartData,gradeNameAppendPreChartData]"
+                        dataKey="enr_lwd_county" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="{{getDynamicRoleType()}}" yAxisLabel="Number of Learners"
+                        titleText="Enrolment By {{getDynamicRoleType()}} for Learners with Special Needs"
+                        xAxisField="{{getXDisplayFieldName()}}" [yAxisFields]="defaultEnrolmentGraphOptions"
+                        [titleExtraOptions]="titleExtraOptions" [subTtitleExtraOptions]="subtitleExtraOptions"
+                        [legendExtraOptions]="legendExtraOptions" [xAxisExtraOptions]="xAxisExtraOptions"
+                        [xScaleExtraOptions]="xScaleAxisExtraOptions" [yAxisExtraOptions]="xAxisExtraOptions"
+                        [yScaleExtraOptions]="xScaleAxisExtraOptions" [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+        </div>
+        <mat-divider class="divider-top"></mat-divider>
+        <h2 class="chart-title-2">Absenteeism Charts - {{getSelectedDispaly()}}</h2>
+        <div class="row">
+            <div class="col-xs-12 col-md-12" style="padding-left: 0px;padding-right:0px">
+                <mat-card>
+                    <sistch-chart-js chartId="absencereason" [preChartDataFunctions]="[removeNullValuePreChartData]"
+                        dataKey="absence_reason" [responsive]="true" graphType="bar" subTitleText=""
+                        xAxisLabel="Reason For Absence" yAxisLabel="Number of Occurences"
+                        titleText="Absenteesim by Reason for Absence" xAxisField="reason_name"
+                        [yAxisFields]="reasonForAbsenceGraphOptions" [titleExtraOptions]="titleExtraOptions"
+                        [subTtitleExtraOptions]="subtitleExtraOptions" [legendExtraOptions]="legendExtraOptions"
+                        [xAxisExtraOptions]="xAxisExtraOptions" [xScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [yAxisExtraOptions]="xAxisExtraOptions" [yScaleExtraOptions]="xScaleAxisExtraOptions"
+                        [name]='myName'>
+                    </sistch-chart-js>
+                </mat-card>
+            </div>
+        </div>
+
+        <!-- OLD -->
+        <!-- OLD -->
+        <!-- OLD -->
+        <!-- OLD -->
+        <!-- OLD -->
+        <!-- <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <sistch-chart-js [responsive]="true" graphType="line" subTitleText="" xAxisLabel="Day"
+                    yAxisLabel="Number of Learners" titleText="Daily Attendance Days.." xAxisField="day"
+                    [yAxisFields]="lineCharAxisFields" [titleTooltipFunc]="titleTooltipFuncDay" [name]='myName'>
+                </sistch-chart-js>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <sistch-chart-js xAxisField="day" [titleTooltipFunc]="titleTooltipFuncDay" dataKey="daylastyear"
+                    [yAxisFields]="lineCharAxisFields1" [name]='myName'>
+                </sistch-chart-js>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <sistch-chart-js [responsive]="true" graphType="line" subTitleText="" xAxisLabel="Day"
+                    yAxisLabel="Number of Learners" titleText="Daily Attendance Days.." xAxisField="day"
+                    [yAxisFields]="lineCharAxisFields" [titleTooltipFunc]="titleTooltipFuncDay" [name]='myName'>
+                </sistch-chart-js>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <sistch-chart-js xAxisField="day" [titleTooltipFunc]="titleTooltipFuncDay" dataKey="daylastyear"
+                    [yAxisFields]="lineCharAxisFields1" [name]='myName'>
+                </sistch-chart-js>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <sistch-chart-js [responsive]="true" graphType="line" subTitleText="" xAxisLabel="Day"
+                    yAxisLabel="Number of Learners" titleText="Daily Attendance Days.." xAxisField="day"
+                    [yAxisFields]="lineCharAxisFields" [titleTooltipFunc]="titleTooltipFuncDay" [name]='myName'>
+                </sistch-chart-js>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <sistch-chart-js xAxisField="day" [titleTooltipFunc]="titleTooltipFuncDay" dataKey="daylastyear"
+                    [yAxisFields]="lineCharAxisFields1" [name]='myName'>
+                </sistch-chart-js>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <sistch-chart-js graphType="line" dataKey="county" xAxisField="{{getXDisplayFieldName()}}" [yAxisFields]="yAxisFields"
+                    [name]='myName'>
+                </sistch-chart-js>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+                <sistch-chart-js [titleTooltipFunc]="titleTooltipFunc" dataKey="sub_county" xAxisField="sub_{{getXDisplayFieldName()}}"
+                    [yAxisFields]="yAxisFields" [name]='myName'>
+                </sistch-chart-js>
+            </div>
+
+
+        </div> -->
+    </sistch-data-list>
+</div>

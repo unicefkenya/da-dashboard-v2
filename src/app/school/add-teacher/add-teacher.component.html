@@ -1,0 +1,133 @@
+<form [formGroup]="addTeacherForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-title><b>Add Teacher</b></mat-card-title>
+        <mat-card-subtitle>{{'All fields marked * are required' | translate}}</mat-card-subtitle>
+        <mat-card-content *ngIf="errorMessage">
+            <small class="content mat-text-warn" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                {{ errorMessage | titlecase}}
+            </small>
+        </mat-card-content>
+        <!-- first name -->
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="First Name (*)" formControlName="first_name">
+                    </mat-form-field>
+                    <small *ngIf="addTeacherForm.controls['first_name'].hasError('required') && addTeacherForm.controls['first_name'].touched" class="mat-text-warn">{{'First name is required' | translate}}
+                    </small>
+                </div>
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Middle Name" formControlName="middle_name">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Last Name (*)" formControlName="last_name">
+                    </mat-form-field>
+                    <small *ngIf="addTeacherForm.controls['last_name'].hasError('required') && addTeacherForm.controls['last_name'].touched" class="mat-text-warn">{{'Last name is required' | translate}}
+                    </small>
+                </div>
+            </div>
+        </mat-card-content>
+        <!-- phone number -->
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Phone Number(*)" formControlName="phone">
+                    </mat-form-field>
+                    <small *ngIf="addTeacherForm.controls['phone'].hasError('required') && addTeacherForm.controls['phone'].touched" class="mat-text-warn">{{'Phone number is required' | translate}}
+                    </small>
+                </div>
+            </div>
+        </mat-card-content>
+        <!-- qualification -->
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Highest Academic Qualification (*)" formControlName="qualifications">
+                            <mat-option *ngFor='let qual of qualifications' [value]="qual.value">{{ qual.name | translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="addTeacherForm.controls['qualifications'].hasError('required') && addTeacherForm.controls['qualifications'].touched" class="mat-text-warn">{{'Qualification is required
+            ' | translate}}</small>
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Marital Status (*)" formControlName="marital_status">
+                            <mat-option *ngFor='let status of maritalStatus' [value]="status.value">{{ status.name | translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="addTeacherForm.controls['marital_status'].hasError('required') && addTeacherForm.controls['marital_status'].touched" class="mat-text-warn">{{'Marital status is required
+                ' | translate}}</small>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <!-- email adress -->
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Email Address" formControlName="email">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <!-- is admin -->
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <p>Add as Admin (allows teacher to access all classes):</p>
+                    <mat-checkbox formControlName="is_school_admin" color="primary">
+                    </mat-checkbox>
+                </div>
+            </div>
+        </mat-card-content>
+        <!-- classes -->
+        <mat-card-content *ngIf="!addTeacherForm.controls['is_school_admin'].value">
+            <div class=" content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Class (*)" formControlName="streams" multiple>
+                            <mat-option *ngFor='let class of classes' [value]="class.id">{{ class.base_class | translate }}{{ class.name | translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="addTeacherForm.controls['streams'].hasError('required') && addTeacherForm.controls['streams'].touched" class="mat-text-warn">{{'Class is required
+            ' | translate}}</small>
+                </div>
+            </div>
+
+
+        </mat-card-content>
+        <mat-card-content>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!addTeacherForm.valid || loader">
+                <span [hidden]="update">{{ loader ? 'Submitting..' : 'Submit' | translate}}</span>
+                <span [hidden]="!update">{{ loader ? 'Updating..' : 'Update' | translate}}</span>
+            </button>
+        </mat-card-content>
+    </mat-card>
+</form>
+
+<mat-card *ngIf="update">
+    <mat-card-content>
+        <button mat-raised-button color="primary" (click)="addNewTeacher()"> {{'Add New Teacher' | translate}}
+    </button>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-card-title><b>Promote Students</b></mat-card-title>
+    <mat-card-subtitle>Select classes to promote</mat-card-subtitle>
+    <mat-card-content *ngIf="error">
+        <div class="content mat-text-warn" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+            <small fxFlex="48" class="sec1" fxFlex.xs="55">
+                {{ error }}
+            </small>
+        </div>
+    </mat-card-content>
+    <mat-list role="list" *ngFor="let stream of streamsToPromote; let i = index">
+        <mat-list-item role="listitem">
+            <span matLine>{{stream.base_class}} {{stream.name}}</span>
+            <button *ngIf="!unDoPromotion" mat-raised-button color="{{stream.promote_to || completePromotion ? 'accent':'primary'}}" (click)="promoteDialog(stream, i)">
+        <span *ngIf="!completePromotion">Promote to: {{stream.promote_to}}</span>
+        <span *ngIf="completePromotion">Complete Promotion</span>
+      </button>
+            <button *ngIf="unDoPromotion" mat-raised-button color="primary">
+        Promoted
+      </button>
+        </mat-list-item>
+    </mat-list>
+</mat-card>
+
+<mat-card>
+    <mat-card-content *ngIf="!unDoPromotion">
+        <button mat-raised-button color="primary" type="submit" [disabled]="showPromotionBtn" (click)="promoteSchoool()">
+          {{ completePromotion ? 'Complete Promotion' : 'Promote Students' }}
+        </button>
+    </mat-card-content>
+    <mat-card-content *ngIf="unDoPromotion">
+        <button mat-raised-button color="primary" type="submit" (click)="reversePromotion()">
+      Reverse Promotion
+    </button>
+    </mat-card-content>
+</mat-card>

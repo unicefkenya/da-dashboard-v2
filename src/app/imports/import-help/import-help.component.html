@@ -1,0 +1,92 @@
+<mat-icon class="close-icon" (click)="closeDialog()">icon_close</mat-icon>
+
+<h2 mat-dialog-title>Data Importation</h2>
+<mat-dialog-content class="mat-typography">
+    <h3>Data Cleaning</h3>
+    <p><span class="text-danger"><b>Data cleaning is the first step in the data importation process. It
+                is
+                always advisable to start by cleaning your data.</b></span>
+
+        <span>
+            <ol>
+                <li class="mt-3">
+                    <span class="mt-2">Download a template data sheet. </span>
+
+                    <a href="https://docs.google.com/spreadsheets/d/1SPsjyVkjxeqLDccDNvykWD2gUSVw_QDxd6XLnxoXRpQ/edit?usp=sharing"
+                        target="_blank"><button class="btn btn-sm btn-primary mt-3 mb-3 text-white download-container">
+                            <span>Download Template Data Sheet</span>
+                            <span>
+                                <mat-icon>download</mat-icon>
+                            </span>
+                        </button></a>
+                    <br>
+
+                    This template will guide you with the
+                    format that you should use to upload your data.
+                    <br><br>
+                    <ul>Incase a data field is missing, the data will be uploaded provided the required fields are
+                        present.
+                    </ul>
+                    <br>
+                    <ul>Otherwise, a downloadable errors spreadsheet report will be generated. Correct the errors
+                        and reupload your data.
+                    </ul>
+                </li>
+
+                <li class="mt-3">
+                    Click on the 'Import Data
+                    Sheet' button to upload a learner's data sheet.
+                </li>
+                <img class="mt-2 mb-2" src="../../../assets/images/import-data.png" width="40%">
+
+                <li class="mt-3">
+                    Your data will be queued and uploaded. Once done, the data cleaning table will display the <b>total
+                        number
+                        of learner rows uploaded</b>, <b>processed rows</b>, <b>upload status</b>, <b>your original
+                        downloadable excel
+                        spreadsheet</b> and a <b>downloadable errors excel spreadsheet.</b>
+                </li>
+
+                <li class="mt-3">
+                    Incase of errors, download the errors spreadsheet and use the <b>row number</b> and <b>error
+                        description</b> to reformat and correct the errors. When ready, reupload your excel sheet.
+                </li>
+            </ol>
+        </span>
+    </p>
+
+    <h3>Data Importation</h3>
+    <ol>
+        <li class="mt-3">
+            Once you get to this step, that means your data is clean and free of any errors captured in the data
+            cleaning
+            process.
+        </li>
+
+        <img class="mt-2 mb-2" src="../../../assets/images/import-data.png" width="40%">
+
+        <li class="mt-3">
+            Upload/Reupload your excel spreadsheet.
+        </li>
+
+        <li class="mt-3">
+            Once finished processing, the data importation table will display your <b>rows</b>, <b>processed rows</b>,
+            <b>duplicate rows</b>, <b>number of rows with errors</b>, <b>new learners imported</b>, <b>status</b>,
+            <b>original
+                downloadable excel spreadsheet</b> and <b>downloaded erors spreadsheet (if any errors occur).</b>
+        </li>
+
+
+        <li class="mt-3">
+            Incase of errors, repeat the cleaning process until you are satisfied with your uploaded data.
+        </li>
+
+        <li class="mt-3">
+            Happy Importation :)
+        </li>
+    </ol>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

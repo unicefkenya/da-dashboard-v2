@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="header">
+        <div>
+            <h1 class="page-title mt-2"><b>Data {{action}}</b></h1>
+        </div>
+
+        <div class="btn-container">
+            <span (click)="openHelpDialog()" class="icon-container">
+                <mat-icon class="page-icon icon-help">help_outline</mat-icon>
+                <div class="import-btn-title">Help</div>
+            </span>
+
+            <span (click)="openDialog()" class="icon-container">
+                <mat-icon class="page-icon">add_circle</mat-icon>
+                <div class="import-btn-title">Import Data Sheet</div>
+            </span>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <my-app-tables [args]="importArgs" [enableDelete]="'true'" searchFieldName="name"
+            searchFieldNameMessage="Sheet Name" [headers]="headers" [listTypeUrl]="importsUrl"
+            (actionsEvent)="downloadsActions($event)" page_size="5" [showNumbering]="false" [enableDelete]="true">
+        </my-app-tables>
+    </div>
+
+    <br>
+</div>

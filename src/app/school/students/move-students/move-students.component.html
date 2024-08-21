@@ -1,0 +1,57 @@
+<form [formGroup]="MoveStudentsform" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-title><b>Move Students</b></mat-card-title>
+        <mat-card-content *ngIf="error">
+            <div class="content mat-text-warn" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <small fxFlex="48" class="sec1" fxFlex.xs="55">
+                    {{ error }}
+                </small>
+            </div>
+        </mat-card-content>
+        <mat-card-subtitle>Select class to move children from</mat-card-subtitle>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Move students from (*)" [formControl]="MoveStudentsform.controls['from']">
+                            <mat-option *ngFor="let class of classes" [value]="class.id">{{class.base_class }}{{ class.name }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="MoveStudentsform.controls['from'].hasError('required') && MoveStudentsform.controls['from'].touched" class="mat-text-warn">From Class
+            is required</small>
+
+                </div>
+                <div [hidden]="hideTo" fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Move students to (*)" [formControl]="MoveStudentsform.controls['to']">
+                            <mat-option *ngFor="let class of classes" [value]="class.id">{{class.base_class}} {{ class.name }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="MoveStudentsform.controls['to'].hasError('required') && MoveStudentsform.controls['to'].touched" class="mat-text-warn">To class
+            is required</small>
+
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card>
+        <div [hidden]="hideTo" style="border-bottom: 1px solid gray;">
+            <mat-selection-list>
+                <mat-list-option [selected]="markAll" (click)="selectAll()" style="font-weight: 600;">Select All</mat-list-option>
+            </mat-selection-list>
+        </div>
+        <mat-selection-list [formControl]="MoveStudentsform.controls['students']">
+            <mat-list-option *ngFor="let student of allStudents; let i = index" [value]="student" (click)="singleStudent()">
+                {{ i+1 }}. {{ student.first_name | titlecase }} {{ student.first_name | titlecase }} {{ student.first_name | titlecase }}
+            </mat-list-option>
+        </mat-selection-list>
+    </mat-card>
+    <mat-card *ngIf="!hideTo">
+        <mat-card-content>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!MoveStudentsform.valid">
+              Move students
+            </button>
+        </mat-card-content>
+    </mat-card>
+</form>

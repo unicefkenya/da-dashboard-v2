@@ -1,0 +1,12 @@
+<!-- <app-tables *ngIf="!loader" (setPage)='pageNumberClicked($event)' [columns]="columns" [rows]="rows" [data]="rows"
+    [total]="total" [pageNumber]="pageNumber" [page]="currentPage"></app-tables> -->
+
+<app-loader *ngIf="loader"></app-loader>
+
+<!-- <app-myform [formItems]="formItems" [url]="url" submitButtonText="Search" isValidationOnly=true
+(onValidatedData)="onValidatedData($event)" componentType="filter" formActionName="Search" submitButtonText=""
+[formGroupOrder]="formGroupOrder">
+</app-myform> -->
+
+<my-app-tables listTypeUrl="api/v1/students-delete-reasons/stats/id" page_size="10" [showNumbering]="false" (exportTriggered)="exportTriggerd($event)" [args]="{}" enableExport="enableExport"
+[enableSearch]="false">

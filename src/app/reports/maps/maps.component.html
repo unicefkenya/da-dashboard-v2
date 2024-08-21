@@ -1,0 +1,52 @@
+<!-- <div #gmap style="width:100%;height:800px"></div>
+<div class="col-md-3 col-sm-12 col-xs-12">
+  <button (click)="setMapType('terrain')" class="btn btn-primary">Terrain</button>
+  <button (click)="setMapType('satellite')" class="btn btn-danger">Satellite</button>
+  <button (click)="setMapType('roadmap')" class="btn btn-warning">Road Map</button>
+</div> -->
+
+<div fxLayout="row wrap" fxLayoutAlign="center start">
+    <div fxFlex.gt-md="100" fxFlex.gt-sm="100" fxFlex="100">
+        <!-- <mat-card class="mat-card-top pa-0">
+      <mat-tab-group (selectChange)="onSelectChange($event)">
+        <mat-tab> -->
+        <!-- <ng-template matTabLabel>Info Window</ng-template> -->
+        <agm-map [latitude]="kenyaCenter.lat" [longitude]="kenyaCenter.lng" [zoom]="zoom" style="height: 800px"
+            [disableDefaultUI]="false" [zoomControl]="true" #map>
+
+            <agm-marker *ngFor="let vil of villages" [latitude]="vil.lat" [longitude]="vil.lng">
+                <!-- <agm-marker *ngFor="let vil of villages" [latitude]="kenyaCenter.lat" [longitude]="kenyaCenter.lng"> -->
+                <agm-info-window>
+                    <div id="content">
+                        <h3 id="firstHeading" class="info-data-title"> <b>{{vil.name}}</b></h3>
+                        <div id="bodyContent">
+                            <h4 class="info-window-data-color">{{ 'MAP.ATTENDANCE_DATA' | translate }}</h4>
+                            <p><b> {{ 'MAP.PRESENT' | translate }} {{vil.present}} %</b></p>
+                            <p>{{ 'MAP.BOYS' | translate }} {{vil.present_males}} %</p>
+                            <p>{{ 'MAP.GIRLS' | translate }} {{vil.present_females}} %</p>
+                            <hr><br>
+                            <p><b>{{ 'MAP.ABSENT' | translate }} {{vil.absent}} %</b></p>
+                            <p>{{ 'MAP.BOYS' | translate }} {{vil.absent_males}} %</p>
+                            <p>{{ 'MAP.GIRLS' | translate }} {{vil.absent_females }} %</p>
+
+                            <hr><br>
+                            <h4 class="info-window-data-color">{{ 'MAP.ENROLLMENT_DATA' | translate }}</h4>
+                            <p><strong>{{ 'MAP.TOTAL_ENROLLMENT' | translate }} {{vil.enrol_total}}</strong></p>
+                            <p>{{ 'MAP.BOYS' | translate }} {{vil.enrol_total_males}}</p>
+                            <p>{{ 'MAP.GIRLS' | translate }} {{vil.enrol_total_females}}</p>
+
+                            <hr><br>
+                            <h4 class="info-window-data-warn-color">{{ 'MAP.DROPOUT_DATA' | translate }}</h4>
+                            <p><strong>{{ 'MAP.TOTAL_DROPOUTS' | translate }} {{vil.dropout_total}}</strong></p>
+                            <p>{{ 'MAP.BOYS' | translate }} {{vil.dropout_males}}</p>
+                            <p>{{ 'MAP.GIRLS' | translate }} {{vil.dropout_females}}</p>
+                        </div>
+                    </div>
+                </agm-info-window>
+            </agm-marker>
+        </agm-map>
+        <!-- </mat-tab>
+      </mat-tab-group> -->
+        <!-- </mat-card> -->
+    </div>
+</div>

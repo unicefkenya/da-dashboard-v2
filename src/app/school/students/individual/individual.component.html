@@ -1,0 +1,186 @@
+<div class="wrapper" fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center start">
+    <div fxFlex.gt-sm="90" fxFlex="100">
+        <mat-card>
+            <mat-form-field style="width: 100%" class="mb-1">
+                <input matInput placeholder="Type to filter results..." name="search_name" [(ngModel)]="search_name">
+                <!-- (input)="onSearchChange($event.target.value) [disabled]="!form.valid"-->
+            </mat-form-field>
+            <button [disabled]="!search_name" mat-raised-button color="primary" (click)="search(search_name)">{{ searching_school ?
+                'Searching...' :
+                'Search' }}
+            </button>
+
+            <mat-card-content *ngIf="students && students.length > 0">
+                <br>
+                <p *ngFor="let student of students">
+                    <a (click)="changeStudentDetails(student)">{{student.school_name}}: {{student.admission_no}} - {{student.first_name}} {{student.middle_name}} {{student.last_name}}</a>
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+<div class="wrapper">
+    <div fxLayout="row" fxLayoutWrap="wrap" fxLayoutAlign="center start">
+        <div fxFlex.gt-sm="90" fxFlex="100">
+            <mat-card>
+                <mat-card-content>
+                    <div fxLayout="row">
+                        <div fxFlex="50" style="margin-top: 70px;">
+                            <h1 class="ma-0"><b>{{studentDetails.full_names}}</b></h1>
+                            <p><small>{{ 'INDIVIDUAL.DATE_ENROLLED' | translate }} </small>&nbsp;<b>{{studentDetails.date_enrolled}}</b></p>
+                        </div>
+                        <div fxFlex="25" *ngIf="!noAttendanceTaken">
+                            <figure>
+                                <div class="text-xs-center">
+                                    <h4 style="color: #009588;"><b>{{ percentAttendance }} %</b></h4>
+                                    <div class="text-mat mt10">{{ 'INDIVIDUAL.ATTENDANCE_RECORD' | translate }} </div>
+                                </div>
+                                <div class="ma-xs">
+                                    <mat-progress-bar mode="determinate" mat-color="warn" value="{{ percentAttendance }}"></mat-progress-bar>
+                                </div>
+                            </figure>
+                        </div>
+                        <div fxFlex="25" *ngIf="!noAttendanceTaken">
+                            <figure>
+                                <div class="text-xs-center">
+                                    <h4 style="color: #e91d63;"><b>{{ dropoutProbability }} %</b></h4>
+                                    <div class="text-mat mt10">{{ 'INDIVIDUAL.DROPOUT_PROB_RATE' | translate }}</div>
+                                </div>
+                                <div class="ma-xs">
+                                    <mat-progress-bar mode="determinate" value="{{ dropoutProbability }}"></mat-progress-bar>
+                                </div>
+                            </figure>
+                        </div>
+                        <div fxFlex="25" class="no-attendance-card" *ngIf="noAttendanceTaken">
+                            <app-no-results></app-no-results>
+                        </div>
+                    </div>
+                    <br>
+                    <div style="margin-left: 50%" class="text-xs-center"><small>{{ 'INDIVIDUAL.STATUS' | translate }}</small>&nbsp;&nbsp; {{ 'INDIVIDUAL.OVERALL_PERCENT_ATTENDANCE' | translate }}
+                        <br>
+                        <span style="color:#521DB7;"><b>{{presentDays}} {{ 'INDIVIDUAL.PRESENT_DAYS' | translate }} / {{totalDays}} {{ 'INDIVIDUAL.TOTAL_ATTENDANCE_DAYS_TAKEN' | translate }}</b></span><br> {{ 'INDIVIDUAL.PRESENT_ATTENDANCE' | translate
+                        }}
+                    </div>
+                    <br>
+                </mat-card-content>
+                <hr>
+                <br>
+                <mat-card-content>
+                    <div fxLayout="row" class="text-xs-center">
+                        <div fxFlex="33">
+                            <small> {{ 'INDIVIDUAL.SCHOOL' | translate }}</small>
+                            <h2 class="mt-0"><b>{{studentDetails.school_name}}</b></h2>
+                        </div>
+                        <div fxFlex="33">
+                            <small> {{ 'INDIVIDUAL.ADMISSION_NO' | translate }} </small>
+                            <h2 class="mt-0"><b>{{studentDetails.admission_no}}</b></h2>
+                        </div>
+                        <div fxFlex="33">
+                            <small> {{ 'INDIVIDUAL.CLASS' | translate }} </small>
+                            <h2 class="mt-0"><b>{{studentDetails.stream_name}}</b></h2>
+                        </div>
+                    </div>
+                </mat-card-content>
+                <hr>
+                <mat-card-content>
+                    <p class="text-xs-center">{{ 'INDIVIDUAL.META_DATA' | translate }} </p>
+                </mat-card-content>
+            </mat-card>
+            <mat-card>
+                <mat-tab-group [selectedIndex]="0" mat-stretch-tabs>
+                    <mat-tab>
+                        <ng-template matTabLabel> {{ 'INDIVIDUAL.META_DATA_INFO.BIO' | translate }} </ng-template>
+                        <mat-card-content>
+                            <h6 mat-subheader class="text-uppercase font-weight-bold"> {{ 'INDIVIDUAL.META_DATA_INFO.INFO' | translate }} </h6>
+                            <div fxLayout="row" layout-align="center">
+                                <div class="pr-1" fxFlex>
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.DOB' | translate }} </span>
+                                        <strong> {{studentDetails.date_of_birth}} </strong>
+                                    </div>
+
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.GENDER' | translate }} </span>
+                                        <strong *ngIf="studentDetails.gender === 'M'"> {{ 'INDIVIDUAL.META_DATA_INFO.MALE' | translate }} </strong>
+                                        <strong *ngIf="studentDetails.gender === 'F'"> {{ 'INDIVIDUAL.META_DATA_INFO.FEMALE' | translate }} </strong>
+                                    </div>
+
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.TIME_TO_SCHOOL' | translate }} </span>
+                                        <strong> {{ studentDetails.time_to_school}} </strong>
+                                    </div>
+
+                                    <div fxLayout="column">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.MODE_OF_TRANSPORT' | translate }} </span>
+                                        <strong> {{ studentDetails.mode_of_transport }} </strong>
+                                    </div>
+                                </div>
+                                <div class="pl-1" fxFlex>
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.STAY_WITH' | translate }} </span>
+                                        <strong>{{ studentDetails.guardian_status}}</strong>
+                                    </div>
+
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.HOUSEHOLD_NUMBER' | translate }} </span>
+                                        <strong> {{ studentDetails.household}} </strong>
+                                    </div>
+
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.MEALS_PER_DAY' | translate }} </span>
+                                        <strong> {{ studentDetails.meals_per_day}} </strong>
+                                    </div>
+
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat"> {{ 'INDIVIDUAL.META_DATA_INFO.SPECIAL_NEEDS' | translate }} </span>
+                                        <strong *ngIf="studentDetails.special_needs[0] === 'N'"> {{ studentDetails.special_needs[0]}} </strong>
+                                        <span *ngIf="studentDetails.special_needs[0] !== 'N'">
+                                        <strong *ngFor="let special_needs of studentDetails.special_needs">{{special_needs}}</strong>
+                                    </span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                        <hr>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template matTabLabel> {{ 'INDIVIDUAL.META_DATA_INFO.GUARDIAN_INFO' | translate }} </ng-template>
+                        <mat-card-content>
+                            <h6 mat-subheader class="text-uppercase font-weight-bold"> {{ 'INDIVIDUAL.META_DATA_INFO.GUARDIAN_CONTACT_DETAILS' | translate }} </h6>
+                            <div fxLayout="row" layout-align="center">
+                                <div class="pr-1" fxFlex>
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat">{{ 'INDIVIDUAL.META_DATA_INFO.GUARDIAN_NAME' | translate }}</span>
+                                        <strong *ngIf="studentDetails.guardian_name !== null"> {{ studentDetails.guardian_name}} </strong>
+                                        <strong *ngIf="studentDetails.guardian_name === null">NS</strong>
+                                    </div>
+                                    <div fxLayout="column" class="mb-1">
+                                        <span class="text-mat">{{ 'INDIVIDUAL.META_DATA_INFO.GUARDIAN_PHONE' | translate }} </span>
+                                        <strong> {{studentDetails.guardian_phone}} </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-tab>
+                    <mat-tab>
+                        <ng-template matTabLabel>{{ 'INDIVIDUAL.META_DATA_INFO.ATTENDANCE' | translate }}</ng-template>
+
+                        <div fxFlex.gt-sm="100" fxFlex.gt-xs="100" fxFlex="100">
+                            <mat-card *ngIf="!daily_chart">
+                                <mat-card-title> {{ 'INDIVIDUAL.META_DATA_INFO.NO_RECORD' | translate }} </mat-card-title>
+                                <mat-card-subtitle> {{ 'INDIVIDUAL.META_DATA_INFO.ATTENDANCE_RECORD' | translate }} </mat-card-subtitle>
+                            </mat-card>
+                            <mat-card *ngIf="daily_chart">
+                                <mat-card-subtitle> {{ 'INDIVIDUAL.META_DATA_INFO.ATTENDANCE_RECORD' | translate }} </mat-card-subtitle>
+                                <mat-card-content *ngIf="att_d_resolver">
+                                    <app-graphs [chart_type]='bar' [configs]='bar_configs' [data]='att_d_distribution'></app-graphs>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card>
+        </div>
+    </div>
+</div>

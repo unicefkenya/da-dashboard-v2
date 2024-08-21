@@ -1,0 +1,161 @@
+<app-welcome-banner></app-welcome-banner>
+<!-- <app-loader></app-loader> -->
+
+<div fxLayout="row wrap">
+    <div *ngIf="role != 'SCHA' || statistics.schools >1" routerLink="schools/view-schools" class="stats-link"
+        fxFlex.gt-sm="{{ stats_widget_size }}" fxFlex.gt-xs="50" fxFlex="100">
+        <mat-card class="card-widget mat-gray">
+            <div mat-card-widget>
+                <div mat-card-float-icon>
+                    <mat-icon>school</mat-icon>
+                </div>
+                <div class="pl-0">
+                    <h2 mat-card-widget-title>{{ statistics.schools }}</h2>
+                    <p>{{ 'SCHOOLS' | translate }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div routerLink="students/view-students" class="stats-link" fxFlex.gt-sm="{{stats_widget_size}}" fxFlex.gt-xs="50"
+        fxFlex="100">
+        <mat-card class="card-widget mat-teal">
+            <div mat-card-widget>
+                <div mat-card-float-icon>
+                    <mat-icon>people</mat-icon>
+                </div>
+                <div class="pl-0">
+                    <h2 mat-card-widget-title>{{ statistics.students }}</h2>
+                    <p>{{ 'ALLSTUDENTS' | translate }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div (click)="showStudents('boys')" class="stats-link" fxFlex.gt-sm="{{stats_widget_size}}" fxFlex.gt-xs="50"
+        fxFlex="100">
+        <mat-card class="card-widget mat-blue">
+            <div mat-card-widget>
+                <div mat-card-float-icon>
+                    <mat-icon>people</mat-icon>
+                </div>
+                <div class="pl-0">
+                    <h2 mat-card-widget-title>{{ statistics.boys }}</h2>
+                    <p>{{ 'BOYS' | translate }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div (click)="showStudents('girls')" class="stats-link" fxFlex.gt-sm="{{stats_widget_size}}" fxFlex.gt-xs="50"
+        fxFlex="100">
+        <mat-card class="card-widget mat-yellow">
+            <div mat-card-widget>
+                <div mat-card-float-icon>
+                    <mat-icon>people_outline</mat-icon>
+                </div>
+                <div class="pl-0" style="color: rgba(102, 95, 95, 0.87);">
+                    <h2 mat-card-widget-title>{{ statistics.girls }}</h2>
+                    <p>{{ 'GIRLS' | translate }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+    <div routerLink="reports/delete" class="stats-link" fxFlex.gt-sm="{{stats_widget_size}}"
+        fxFlex.gt-xs="50" fxFlex="100">
+        <mat-card class="card-widget mat-pink">
+            <div mat-card-widget>
+                <div mat-card-float-icon>
+                    <mat-icon>expand_more</mat-icon>
+                </div>
+                <div class=" pl-0 ">
+                    <h2 mat-card-widget-title>{{ statistics.dropouts }}</h2>
+                    <p>{{ 'Deactivated' | translate }}</p>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<div fxLayout="row" fxLayoutWrap="wrap" class="chart-wrapper">
+    <div fxFlex.gt-sm="33.33% " fxFlex="100 " fxLayout="column" class="daily-chart">
+        <!-- daily attendance -->
+        <mat-card *ngIf="daily_chart">
+            <mat-card-title>{{ 'DAILY_ATTENDANCE' | translate }}</mat-card-title>
+            <mat-card-subtitle>{{ 'ATTENDANCE_DESC' | translate }} (Last 5 days)</mat-card-subtitle>
+            <mat-card-content *ngIf="att_d_resolver">
+                <app-graphs [chart_type]='bar' [configs]='bar_configs' [data]='att_d_distribution'></app-graphs>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="dailyLoading">
+            <mat-card-subtitle>Loading...</mat-card-subtitle>
+        </mat-card>
+        <app-no-results duration="Last 5 Days" *ngIf="!daily_chart && !dailyLoading"></app-no-results>
+    </div>
+
+    <div fxFlex.gt-sm="33.33% " fxFlex="100 " fxLayout="column" class="monthly-chart">
+        <!-- monthly attendance -->
+        <mat-card *ngIf="monthly_chart">
+            <mat-card-title>{{ 'MONTHLY_ATTENDANCE' | translate }}</mat-card-title>
+            <mat-card-subtitle>{{ 'ATTENDANCE_DESC' | translate }} (Last 90 days)</mat-card-subtitle>
+            <mat-card-content *ngIf="att_m_resolver">
+                <app-graphs [chart_type]='bar' [configs]='monthly_attendance_configs' [data]='att_m_distribution'>
+                </app-graphs>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="monthlyLoading">
+            <mat-card-subtitle>Loading...</mat-card-subtitle>
+        </mat-card>
+        <app-no-results duration="Last 90 Days" *ngIf="!monthly_chart && !monthlyLoading"></app-no-results>
+    </div>
+    <div fxFlex.gt-sm="33.33% " fxFlex="100 " fxLayout="column" class="annual-chart">
+        <!-- annual attendance -->
+        <mat-card *ngIf="annual_chart">
+            <mat-card-title>{{ 'ANNUAL_ATTENDANCE' | translate }}</mat-card-title>
+            <mat-card-subtitle>{{ 'ATTENDANCE_DESC' | translate }} (Last 1 Year)</mat-card-subtitle>
+            <mat-card-content *ngIf="att_resolver">
+                <app-graphs [chart_type]='doughnut' [configs]='attendance_doughnut_configs' [data]='att_distribution'>
+                </app-graphs>
+            </mat-card-content>
+        </mat-card>
+        <mat-card *ngIf="yearlyLoading">
+            <mat-card-subtitle>Loading...</mat-card-subtitle>
+        </mat-card>
+        <app-no-results duration="Last 1 Year" *ngIf="!annual_chart && !yearlyLoading"></app-no-results>
+
+    </div>
+</div>
+<div fxLayout="row " fxLayoutWrap="wrap" class="chart-wrapper">
+    <div fxFlex.gt-sm="66.66% " fxFlex="100 " fxLayout="column" class="enrolment-chart">
+        <!-- enrolment breakdown per class -->
+        <mat-card *ngIf="enrolment_class_chart">
+            <mat-card-title>{{ 'STUDENT_ENROLMENT_TITLE_CLASS' | translate}}</mat-card-title>
+            <mat-card-subtitle>{{ 'STUDENT_ENROLMENT_CLASS' | translate }}</mat-card-subtitle>
+            <mat-card-content *ngIf="class_resolver">
+                <app-graphs [chart_type]='bar' [configs]='learner_configs' [data]='class_distribution'>
+                </app-graphs>
+            </mat-card-content>
+        </mat-card>
+        <app-no-results *ngIf="!enrolment_class_chart"></app-no-results>
+    </div>
+
+    <div fxFlex.gt-sm="33.34% " fxFlex="100 " fxLayout="column" class="enrolment-gender-chart">
+        <!-- girls:boys ratio -->
+        <mat-card *ngIf="enrolment_gender_chart">
+            <mat-card-title>{{ 'STUDENT_ENROLMENT_DIST_GENDER' | translate}}</mat-card-title>
+            <mat-card-subtitle>{{ 'STUDENT_ENROLMENT_DESC_DIST_GENDER' | translate}}</mat-card-subtitle>
+            <mat-card-content *ngIf="en_resolver">
+                <app-graphs [chart_type]='doughnut' [configs]='doughnut_configs' [data]='en_distribution'></app-graphs>
+            </mat-card-content>
+        </mat-card>
+        <app-no-results *ngIf="!enrolment_gender_chart"></app-no-results>
+    </div>
+    <!-- 
+    <div fxFlex.gt-sm="33.34% " fxFlex="100 " fxLayout="column" class="enrolment-gender-chart">
+        <mat-card *ngIf="enrolment_gender_chart">
+            <mat-card-title>{{ 'STUDENT_ENROLMENT_DIST_LWD' | translate}}</mat-card-title>
+            <mat-card-subtitle>{{ 'STUDENT_ENROLMENT_DESC_DIST_LWD' | translate}}</mat-card-subtitle>
+            <mat-card-content *ngIf="en_resolver">
+                <app-graphs [chart_type]='doughnut' [configs]='doughnut_configs' [data]='en_distribution'></app-graphs>
+            </mat-card-content>
+        </mat-card>
+        <app-no-results *ngIf="!enrolment_gender_chart"></app-no-results>
+    </div> -->
+</div>

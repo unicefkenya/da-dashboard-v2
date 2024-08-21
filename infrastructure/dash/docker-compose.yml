@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  dash:
+    image: michameiu/moekedash:v1.0.10
+    
+    networks:
+      - ovencrypt
+    
+    deploy:
+      replicas: 2
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.dash.rule=Host(`dash.onekana.ke`) || Host(`onekana.naconek.ke`)" 
+        - "traefik.http.services.dash.loadbalancer.server.port=80"
+        - "traefik.docker.network=ovencrypt"
+
+networks:
+  ovencrypt:
+    external: true
+    attachable: true

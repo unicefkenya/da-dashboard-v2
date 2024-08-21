@@ -1,0 +1,156 @@
+<form [formGroup]="addStudentForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-title><b>Add Learner</b></mat-card-title>
+        <mat-card-subtitle>{{'All fields marked * are required' | translate}}</mat-card-subtitle>
+        <!-- first name -->
+        <mat-card-content *ngIf="error">
+            <div class="content mat-text-warn" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <small fxFlex="48" class="sec1" fxFlex.xs="55">
+                    {{ error }}
+                </small>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="First Name (*)" formControlName="first_name">
+                    </mat-form-field>
+                    <small
+                        *ngIf="addStudentForm.controls['first_name'].hasError('required') && addStudentForm.controls['first_name'].touched"
+                        class="mat-text-warn">{{'First name is required' | translate}}
+                    </small>
+                </div>
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Middle Name" formControlName="middle_name">
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Last Name (*)" formControlName="last_name">
+                    </mat-form-field>
+                    <small
+                        *ngIf="addStudentForm.controls['last_name'].hasError('required') && addStudentForm.controls['last_name'].touched"
+                        class="mat-text-warn">{{'Last name is required' | translate}}
+                    </small>
+                </div>
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Admission Number(*)" formControlName="admission_no">
+                    </mat-form-field>
+                    <small
+                        *ngIf="addStudentForm.controls['admission_no'].hasError('required') && addStudentForm.controls['admission_no'].touched"
+                        class="mat-text-warn">{{'Admission number is required' | translate}}
+                    </small>
+                </div>
+            </div>
+        </mat-card-content>
+
+
+        <!-- gender -->
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Gender (*)" formControlName="gender">
+                            <mat-option *ngFor='let g of sex' [value]="g.value">{{ g.gender | translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small
+                        *ngIf="addStudentForm.controls['gender'].hasError('required') && addStudentForm.controls['gender'].touched"
+                        class="mat-text-warn">{{'Gender is required
+                        ' | translate}}</small>
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <input matInput [matDatepicker]="picker" placeholder="Date of Birth"
+                            formControlName="date_of_birth">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <!-- classes -->
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Student Class (*)" formControlName="stream">
+                            <mat-option *ngFor='let class of classes' [value]="class.id">{{ class.base_class | translate
+                                }}{{ class.name | translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small
+                        *ngIf="addStudentForm.controls['stream'].hasError('required') && addStudentForm.controls['stream'].touched"
+                        class="mat-text-warn">{{'Class is required
+                        ' | translate}}</small>
+                </div>
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Student Status" formControlName="status">
+                            <mat-option *ngFor='let status of studentStatus' [value]="status.value">{{ status.name |
+                                translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Special Needs (*)" formControlName="special_needs" multiple>
+                            <mat-option *ngFor='let need of specialNeeds' [value]="need.value">{{ need.name | translate
+                                }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <small
+                        *ngIf="addStudentForm.controls['special_needs'].hasError('required') && addStudentForm.controls['special_needs'].touched"
+                        class="mat-text-warn">{{'Special Needs are required
+                        ' | translate}}</small>
+                </div>
+            </div>
+        </mat-card-content>
+
+        <mat-card-content>
+            <div class="content" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between">
+                <div fxFlex="48" class="sec2">
+                    <mat-form-field style="width: 100%">
+                        <mat-select placeholder="Guardian Status" formControlName="guardian_status">
+                            <mat-option *ngFor='let status of guardianStatus' [value]="status.value">{{ status.name |
+                                translate }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="48" class="sec1" fxFlex.xs="55">
+                    <mat-form-field style="width: 100%">
+                        <input matInput placeholder="Guardian phone number" formControlName="guardian_phone">
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+        </mat-card-content>
+        <mat-card-content>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!addStudentForm.valid || loader">
+                <span [hidden]="update">{{ loader ? 'Submiting..' : 'Submit' | translate}}</span>
+                <span [hidden]="!update">{{ loader ? 'Updating..' : 'Update' | translate}}</span>
+            </button>
+        </mat-card-content>
+
+    </mat-card>
+</form>
+
+<mat-card *ngIf="update">
+    <mat-card-content>
+        <button mat-raised-button color="primary" (click)="addNewStudent()"> {{'Add New Student' | translate}}</button>
+    </mat-card-content>
+</mat-card>

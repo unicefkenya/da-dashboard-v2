@@ -1,0 +1,20 @@
+h2, h3 {
+    font-family: "Prompt-Medium";
+}
+
+mat-dialog-content {
+font-family: "Prompt-Regular";
+}
+
+.download-container {
+    display: grid;
+    grid-template-columns: 220px 30px;
+    padding-top: 8px;
+}
+
+.close-icon {
+    display: flex;
+    justify-content: right;
+    min-width: 100%;
+    cursor: pointer;
+}

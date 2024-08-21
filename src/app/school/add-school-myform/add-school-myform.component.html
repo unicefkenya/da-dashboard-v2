@@ -1,0 +1,13 @@
+<div class="container">
+
+  <h1 class="page-title mt-3">Add School</h1>
+
+  <sistch-tables-single-view (setInstance)="setIntance($event)"
+  instanceUrl="api/v1/schools" [id]="id">
+      <app-myform [extraFields]="extra_fields" [formItems]="formItems" [url]="url"
+  (onValidatedData)="onValidatedData($event)" [submitButtonText]="'School'" [formGroupOrder]="formGroupOrder"
+  [hideButtons]=false [instance]="instance" (onPostedData)="onPostedData($event)">
+      </app-myform>
+</sistch-tables-single-view>
+
+</div>

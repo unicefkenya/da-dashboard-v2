@@ -1,0 +1,14 @@
+<div style="text-align:center; border-bottom: 1px solid gray; ">
+    <p style="padding-bottom: 5px;">Promote <span style="font-weight: 600"> Class {{ data.from_class }} </span>to:</p>
+</div>
+<div mat-dialog-content style="border-bottom: 1px solid gray; padding-bottom: 5px;">
+    <mat-radio-group class="radio-group" [(ngModel)]="selectedId">
+        <mat-radio-button class="radio-button" *ngFor="let stream of data.streams" [value]="stream.id">
+            {{stream.base_class}} {{stream.name}}
+        </mat-radio-button>
+    </mat-radio-group>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="selectedId" cdkFocusInitial>Ok</button>
+</div>

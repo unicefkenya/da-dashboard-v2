@@ -1,0 +1,9 @@
+<div class="message" style="display: flex">
+    <div>
+        <mat-icon>{{ data.icon }}</mat-icon>
+    </div>
+    <div class="notification-info" style="width: 80%;">{{ data.message }}</div>
+    <div (click)='dismissSnackBar()'>
+        <mat-icon>cancel</mat-icon>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+.page-title {
+    font-family: "Prompt-Medium";
+    font-size: 19px;
+    padding-top: 5px;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.btn-container {
+    display: grid;
+    grid-template-columns: 0px 75px;
+    justify-content: end;
+}
+
+.icon-container {
+    display: grid;
+    grid-template-columns: 30px 130px;
+    justify-content: end;
+    align-items: center;
+    cursor: pointer;
+}
+
+.import-btn-title {
+    padding-top: 2px;
+}
+
+:host ::ng-deep {
+    .form-control {
+      font-size: 14px !important;
+    }
+}
+
+/* Mobile View */
+@media screen and (min-width:250px) and (max-width:480px) {
+    .btn-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: end;
+        row-gap: .5em;
+        margin-top: 10px;
+    }
+
+    .import-btn-title {
+        text-align: right;
+    }
+
+    .icon-help {
+        margin-left: 100px;
+    }
+
+
+}
