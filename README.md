@@ -2,34 +2,33 @@
 
 ## Introduction
 
-Digital Attendance is an open-source project supported by UNICEF Kenya through a collaboration with [Sisitech](hhttps://sisitech.com). The platform allows tracking of individual attendance of students in schools.
+Digital Attendance is an open-source project supported by UNICEF Kenya through a collaboration with [Sisitech](https://sisitech.com). The platform allows tracking of individual student attendance in schools.
 
-It is comprised of three components
-- API - Django Rest Framework
-- Dashboard - Angular Web Application (this)
-- Application - Ionic Hybrid Application
-
+It is comprised of three components:
+- **API**: Django Rest Framework
+- **Dashboard**: Angular Web Application (this project)
+- **Application**: Ionic Hybrid Application
 
 ## User Manual
 - [Onekana User Manual](https://sisitech.github.io/OnekanaDocs/)
 
+---
 
-
-# Set up
+# Setup
 
 ## 1. Prerequisites
 
 Before starting, ensure the following are installed:
 
-- **Node.js** (v14.x or above) - [Download here](https://nodejs.org/en/download/)
-- **Angular CLI** (v12.x or above) - [Installation guide](https://angular.io/cli)
-- Configure `.npmrc` 
+- **Node.js** (v18.x or above) - [Download here](https://nodejs.org/en/download/)
+- **Angular CLI** (v13.39) - [Installation guide](https://angular.io/cli)
+- `.npmrc` configuration (required to install `@sisitech` npm libraries hosted on GitHub)
 
-Additionally, ensure the backend API is already set up and browsable, eg `http://localhost:8000`  or `https://api.domain.com/`.
+Additionally, ensure the backend API is already set up and accessible, e.g., `http://localhost:8000` or `https://api.domain.com/`.
 
 ---
 
-### Updating .npmrc
+### Updating `.npmrc`
 #### Generating a GitHub Token
 
 1. **Log in to GitHub**  
@@ -37,7 +36,7 @@ Additionally, ensure the backend API is already set up and browsable, eg `http:/
 
 2. **Navigate to Personal Access Tokens:**
    - Click on your profile icon in the upper-right corner and select **Settings**.
-   - On the left-hand sidebar, click **Developer settings**.
+   - In the left-hand sidebar, click **Developer settings**.
    - Under **Personal access tokens**, click on **Tokens (classic)**.
    - Click on **Generate new token**.
 
@@ -50,24 +49,26 @@ Additionally, ensure the backend API is already set up and browsable, eg `http:/
 
 4. **Generate and Copy the Token:**
    - After configuring the scopes, click **Generate token**.
-   - Copy the generated token. **Make sure to store it securely,** as it won’t be displayed again.
+   - Copy the generated token. **Make sure to store it securely**, as it won’t be displayed again.
 
 #### Updating the `.npmrc` File
 
-To authenticate npm to use your GitHub token:
+To authenticate npm using your GitHub token:
 
 - **Create or Update the `.npmrc` File in Your Project:**
 
-   Navigate to your project’s root directory and either create or update the `.npmrc` file with the following configuration:
+   Navigate to your home directory and either create or update the `.npmrc` file with the following configuration:
+   ```sh
+    nano ~/.npmrc
+   ```
 
+   Update it with the following content, replacing `YOUR_GITHUB_TOKEN` with the actual token:
    ```ini
    //npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
    @sisitech:registry=https://npm.pkg.github.com/
    ```
 
-   Replace `YOUR_GITHUB_TOKEN` with the token you copied earlier.
-
-   This setup tells npm to use the GitHub Packages registry for all `@sisitech` scoped packages and authenticate using your token.
+This setup tells npm to use the GitHub Packages registry for all `@sisitech` scoped packages and authenticate using your token.
 
 - **Verify the Configuration:**
    After saving the `.npmrc` file, it should look like this:
@@ -79,7 +80,7 @@ To authenticate npm to use your GitHub token:
 
    Make sure the token is correctly placed, and the scope `@sisitech` points to the GitHub Packages registry.
 
-If the packages installs without any errors, your configuration is successful otherwise you will get a `401` error.
+If the packages install without any errors, your configuration is successful. Otherwise, you will encounter a `401 Unauthorized` error for any `@sisitech` scoped packages.
 
 ---
 
@@ -126,12 +127,12 @@ export const environment = {
 
 To obtain the `APIClientID`, follow these steps:
 
-1. Log in to your Django-admin panel: [https://api.domain.com/admin](https://api.domain.com/admin).
+1. Log in to your Django admin panel: [https://api.domain.com/admin](https://api.domain.com/admin).
 2. Navigate to the **API Clients** section (assuming you have set this up).
 3. Create a new client or view existing ones.
 4. Copy the `Client ID` and paste it into the `APIClientID` field in the environment configuration.
 
-For more details on setting up API clients in Django, you can refer to the [Django OAuth Toolkit documentation](https://django-oauth-toolkit.readthedocs.io/en/latest/).
+For more details on setting up API clients in Django, refer to the [Django OAuth Toolkit documentation](https://django-oauth-toolkit.readthedocs.io/en/latest/).
 
 ---
 
