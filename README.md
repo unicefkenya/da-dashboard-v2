@@ -150,3 +150,8 @@ The application will be accessible at `http://localhost:4200/`.
 
 ## 7. Learn More
 - [Angular Documentation](https://angular.io/docs)
+
+
+##  Want to Contribute or Have Any Questions?
+We welcome contributions and feedback! If you want to contribute to this project or have any questions, reach out via email at hello@sisitech.com
+
