@@ -9,6 +9,9 @@ It is comprised of three components:
 - **Dashboard**: Angular Web Application (this project)
 - **Application**: Ionic Hybrid Application
 
+## Digital Attendance Journey
+- [Digital Attendance Journey Journey](https://drive.google.com/file/d/17T3VT-howD86XOSYrExLVMXWiXTiXimD/view)
+
 ## User Manual
 - [Onekana User Manual](https://sisitech.github.io/OnekanaDocs/)
 
