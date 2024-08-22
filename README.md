@@ -92,8 +92,8 @@ If the packages install without any errors, your configuration is successful. Ot
 Begin by cloning the project repository:
 
 ```bash
-git clone git@github.com:unicefkenya/da-dashboard-v2.git
-cd da-dashboard-v2
+git clone git@github.com:unicefkenya/daa-dashboard-v2.git
+cd daa-dashboard-v2
 ```
 
 ---
